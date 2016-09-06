@@ -1,0 +1,129 @@
+<archetype-descriptor name="spring-mvc-quickstart"
+                      xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd">
+    <requiredProperties>
+        <requiredProperty key="groupId">
+            <defaultValue>org.biins</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="artifactId">
+            <defaultValue>test</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="serviceName"/>
+        <requiredProperty key="springBootVersion">
+            <defaultValue>1.4.0.RELEASE</defaultValue>
+        </requiredProperty>
+    </requiredProperties>
+
+    <modules>
+        <!-- api -->
+        <module id="api" dir="api" name="api">
+            <fileSets>
+                <!-- main -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <!-- test -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="app" dir="app" name="app">
+            <fileSets>
+                <!-- main -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <!-- test -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="client" dir="client" name="client">
+            <fileSets>
+                <!-- main -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <!-- test -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+
+        <module id="core" dir="core" name="core">
+            <fileSets>
+                <!-- main -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/main/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <!-- test -->
+                <fileSet filtered="true" packaged="true">
+                    <directory>src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                </fileSet>
+                <fileSet filtered="true">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+    </modules>
+
+    <fileSets>
+        <fileSet filtered="true">
+            <directory>/</directory>
+            <includes>
+                <include>.gitignore</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>
