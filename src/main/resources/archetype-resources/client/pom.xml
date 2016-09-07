@@ -4,11 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
+    <artifactId>${rootArtifactId}-client</artifactId>
     <version>${version}</version>
     <packaging>jar</packaging>
 
     <name>${artifactId}</name>
     <description>${groupId}:${artifactId}:${version}.jar</description>
 
+    <dependencies>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

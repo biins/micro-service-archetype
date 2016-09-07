@@ -3,12 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>${groupId}</groupId>
-    <artifactId>${artifactId}</artifactId>
+    <artifactId>${rootArtifactId}-api</artifactId>
     <version>${version}</version>
     <packaging>jar</packaging>
 
     <name>${artifactId}</name>
     <description>${groupId}:${artifactId}:${version}.jar</description>
 
+    <dependencies>
+        <!-- all dependencies in API module are forbiden -->
+    </dependencies>
 </project>
