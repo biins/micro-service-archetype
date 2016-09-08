@@ -10,8 +10,12 @@
             <defaultValue>test</defaultValue>
         </requiredProperty>
         <requiredProperty key="serviceName"/>
+        <!-- versions -->
         <requiredProperty key="springBootVersion">
             <defaultValue>1.4.0.RELEASE</defaultValue>
+        </requiredProperty>
+        <requiredProperty key="jerseyVersion">
+            <defaultValue>2.23.1</defaultValue>
         </requiredProperty>
     </requiredProperties>
 
