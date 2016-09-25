@@ -9,11 +9,17 @@
     <packaging>pom</packaging>
 
     <name>${artifactId}</name>
-    <description>${groupId}:${artifactId}:${version}.jar</description>
+    <description>${serviceName}</description>
 
     <properties>
-        <spring-boot.version>${springBootVersion}</spring-boot.version>
-        <jersey.version>${jerseyVersion}</jersey.version>
+        <spring.boot.version>1.4.0.RELEASE</spring.boot.version>
+        <spring.cloud.feign.version>1.1.6.RELEASE</spring.cloud.feign.version>
+        <feign.version>8.16.2</feign.version>
+        <jersey.version>2.23.1</jersey.version>
+        <logstash.logback.encoder.version>4.7</logstash.logback.encoder.version>
+        <json.view.version>0.8</json.view.version>
+        <nosqlunit.version>0.10.0</nosqlunit.version>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -21,25 +27,86 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- bom -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Brixton.SR6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- commons -->
+            <dependency>
+                <groupId>org.biins</groupId>
+                <artifactId>micro-service-commons</artifactId>
+                <version>1.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
+            <!-- modules -->
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${rootArtifactId}-api</artifactId>
-                <version>${version}</version>
+                <artifactId>${artifactId}-api</artifactId>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${rootArtifactId}-core</artifactId>
-                <version>${version}</version>
+                <artifactId>${artifactId}-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${artifactId}-app</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
+            <!-- feign -->
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-jackson</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-httpclient</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.feign</groupId>
+                <artifactId>feign-jaxrs</artifactId>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash.logback.encoder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.monitorjbl</groupId>
+                <artifactId>json-view</artifactId>
+                <version>${json.view.version}</version>
+            </dependency>
+
+            <!-- test -->
+            <dependency>
+                <groupId>org.biins</groupId>
+                <artifactId>test-commons</artifactId>
+                <version>1.0.0</version>
+                <scope>test</scope>
+            </dependency>
             <dependency>
                 <groupId>org.glassfish.jersey.test-framework.providers</groupId>
                 <artifactId>jersey-test-framework-provider-inmemory</artifactId>
@@ -52,10 +119,35 @@
                 <version>${jersey.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.lordofthejars</groupId>
+                <artifactId>nosqlunit-mongodb</artifactId>
+                <version>${nosqlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -66,6 +158,31 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
 </project>

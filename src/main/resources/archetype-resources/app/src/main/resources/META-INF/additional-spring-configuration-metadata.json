@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "rabbitmq.message.test.enable",
+      "type": "java.lang.Boolean",
+      "description": "rabbitmq.message.test.enable."
+    },
+    {
+      "name": "rabbitmq.message.test.exchange",
+      "type": "java.lang.String",
+      "description": "rabbitmq.message.test.exchange."
+    },
+    {
+      "name": "rabbitmq.message.test.queueName",
+      "type": "java.lang.String",
+      "description": "rabbitmq.message.test.queue."
+    },
+    {
+      "name": "http.client.test.url",
+      "type": "java.lang.String",
+      "description": "http.client.test.url."
+    }
+  ]
+}

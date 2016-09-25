@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <appender name="STASH" class="net.logstash.logback.appender.LogstashSocketAppender">
+        <host>localhost</host><!-- TODO logstash server -->
+        <port>514</port>
+        <customFields>{"service":"test"}</customFields>
+    </appender>
+</included>

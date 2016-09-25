@@ -8,30 +8,49 @@
     <packaging>jar</packaging>
 
     <name>${artifactId}</name>
-    <description>${groupId}:${artifactId}:${version}.jar</description>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <description>Service core class</description>
 
     <dependencies>
+        <!-- modules -->
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-client</artifactId>
+            <exclusions>
+                <!-- exclusion of jersey 1 -->
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jersey.contribs</groupId>
+                    <artifactId>jersey-contribs</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
+        <!-- modules -->
         <dependency>
             <groupId>org.biins</groupId>
-            <artifactId>${rootArtifactId}-api</artifactId>
+            <artifactId>hystrix-commons</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.biins</groupId>
+            <artifactId>logging-commons</artifactId>
+        </dependency>
+
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -58,7 +77,33 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.monitorjbl</groupId>
+            <artifactId>json-view</artifactId>
+        </dependency>
 
+        <!-- test -->
+        <dependency>
+            <groupId>org.biins</groupId>
+            <artifactId>test-commons</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -74,5 +119,16 @@
             <artifactId>jersey-test-framework-core</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.lordofthejars</groupId>
+            <artifactId>nosqlunit-mongodb</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.biins</groupId>
+            <artifactId>jersey-commons</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
 </project>

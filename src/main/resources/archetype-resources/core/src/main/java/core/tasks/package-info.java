@@ -1,4 +1,5 @@
 /**
  * Package for periodic tasks and jobs
  */
-package org.biins.core.resource;
+package ${package}.core.tasks;
+// TODO: remove

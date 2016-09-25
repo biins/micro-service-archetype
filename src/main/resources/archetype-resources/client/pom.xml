@@ -9,12 +9,111 @@
     <packaging>jar</packaging>
 
     <name>${artifactId}</name>
-    <description>${groupId}:${artifactId}:${version}.jar</description>
+    <description>Service clients</description>
 
     <dependencies>
+        <!-- modules -->
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>${rootArtifactId}-api</artifactId>
         </dependency>
+
+        <!-- commons -->
+        <dependency>
+            <groupId>org.biins</groupId>
+            <artifactId>feign-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.biins</groupId>
+            <artifactId>logging-commons</artifactId>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+            <exclusions>
+                <!-- remove to enable ribbon -->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jdk8</artifactId>
+        </dependency>
+
+        <!-- test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <version>3.2.0</version>
+        </dependency>
     </dependencies>
+
+    <!-- relocation of jersey 1 for ribbon -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.4.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>com.netflix.ribbon:*</include>
+                                    <include>com.sun.jersey:*</include>
+                                    <include>javax.ws.rs:*</include>
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.sun.jersey</pattern>
+                                    <shadedPattern>${groupId}.dep.com.sun.jersey</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sun.ws.rs</pattern>
+                                    <shadedPattern>${groupId}.dep.com.sun.ws.rs</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.ws.rs</pattern>
+                                    <shadedPattern>${groupId}.dep.javax.ws.rs</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
