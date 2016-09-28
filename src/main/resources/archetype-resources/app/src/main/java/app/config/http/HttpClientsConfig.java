@@ -12,16 +12,16 @@ import feign.codec.ErrorDecoder;
 
 @Configuration
 @EnableFeignClients(
-		clients = {
-				HealthCheckResourceClient.class,
-				HealthCheckResourceHystrixClient.class
-		}
+        clients = {
+                HealthCheckResourceClient.class,
+                HealthCheckResourceHystrixClient.class
+        }
 )
 @EnableHystrix
 public class HttpClientsConfig {
 
-	@Bean
-	public ErrorDecoder feignErrorDecoder() {
-		return new JaxRsErrorDecoder();
-	}
+    @Bean
+    public ErrorDecoder feignErrorDecoder() {
+        return new JaxRsErrorDecoder();
+    }
 }

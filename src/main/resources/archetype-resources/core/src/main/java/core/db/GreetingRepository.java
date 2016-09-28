@@ -13,12 +13,12 @@ import org.springframework.data.mongodb.repository.Query;
 // TODO: remove
 public interface GreetingRepository extends GreetingRepositoryCustom, MongoRepository<Greeting, String> {
 
-	Optional<Greeting> findById(String id);
+    Optional<Greeting> findById(String id);
 
-	Slice<Greeting> findByWhom(String whom, Pageable pageable);
+    Slice<Greeting> findByWhom(String whom, Pageable pageable);
 
-	Page<Greeting> findByWhence(String whence, Pageable pageable);
+    Page<Greeting> findByWhence(String whence, Pageable pageable);
 
-	@Query("{count: {$gt: ?0}}")
-	Stream<Greeting> findByCountGreaterThan(int limit);
+    @Query("{count: {$gt: ?0}}")
+    Stream<Greeting> findByCountGreaterThan(int limit);
 }

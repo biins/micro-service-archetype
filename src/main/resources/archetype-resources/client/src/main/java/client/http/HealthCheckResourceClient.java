@@ -15,27 +15,27 @@ import feign.Logger;
 
 // TODO: remove
 @FeignClient(
-		name = "${http.client.test.url}", // MUST be unique per app for proper configuration
-		path = "/test",
-		decode404 = true,
-		configuration = HealthCheckResourceClientConfig.class
+        name = "${http.client.test.url}", // MUST be unique per app for proper configuration
+        path = "/test",
+        decode404 = true,
+        configuration = HealthCheckResourceClientConfig.class
 )
 public interface HealthCheckResourceClient {
 
-	@RequestMapping("/")
-	Optional<Message> sayHello(@RequestParam("name") String name, @RequestHeader("origin") String origin);
+    @RequestMapping("/")
+    Optional<Message> sayHello(@RequestParam("name") String name, @RequestHeader("origin") String origin);
 
 }
 
 class HealthCheckResourceClientConfig extends BaseFeignClientConfig {
 
-	@Bean
-	Logger.Level feignLoggerLevel() {
-		return Logger.Level.FULL;
-	}
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
 
-	@Bean
-	Feign.Builder feignBuilder() {
-		return new Feign.Builder();
-	}
+    @Bean
+    Feign.Builder feignBuilder() {
+        return new Feign.Builder();
+    }
 }

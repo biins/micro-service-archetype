@@ -14,11 +14,11 @@ import com.google.common.cache.CacheBuilder;
 @ConfigurationProperties(prefix = "cache.hello")
 public class HelloCache extends BaseCacheConfig {
 
-	@Bean
-	public Cache helloCache() {
-		return new GuavaCache("hello", CacheBuilder.newBuilder()
-				.expireAfterAccess(getExpire().getSeconds(), TimeUnit.SECONDS)
-				.maximumSize(getSize())
-				.build());
-	}
+    @Bean
+    public Cache helloCache() {
+        return new GuavaCache("hello", CacheBuilder.newBuilder()
+                .expireAfterAccess(getExpire().getSeconds(), TimeUnit.SECONDS)
+                .maximumSize(getSize())
+                .build());
+    }
 }

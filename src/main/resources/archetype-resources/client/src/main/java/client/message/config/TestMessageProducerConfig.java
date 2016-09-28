@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "rabbitmq.message.test")
 public class TestMessageProducerConfig extends RabbitTemplateFactory {
 
-	@Bean
-	RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-		return createRabbitTemplate(connectionFactory);
-	}
+    @Bean
+    RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        return createRabbitTemplate(connectionFactory);
+    }
 
-	@Bean
-	public TestMessagePublisher testMessagePublisher(RabbitTemplate rabbitTemplate) {
-		return new TestMessagePublisher(rabbitTemplate);
-	}
+    @Bean
+    public TestMessagePublisher testMessagePublisher(RabbitTemplate rabbitTemplate) {
+        return new TestMessagePublisher(rabbitTemplate);
+    }
 }

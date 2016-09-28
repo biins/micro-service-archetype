@@ -20,26 +20,26 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest
 public class TestMessagePublisherTest {
 
-	@MockBean
-	private RabbitTemplate rabbitTemplate;
-	@Autowired
-	private TestMessagePublisher testMessagePublisher;
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private TestMessagePublisher testMessagePublisher;
 
-	@Test
-	public void publish() throws Exception {
-		testMessagePublisher.publish(new Message("test"));
-	}
+    @Test
+    public void publish() throws Exception {
+        testMessagePublisher.publish(new Message("test"));
+    }
 
-	@Test
-	public void publishExceptionalState() throws Exception {
-		doThrow(new RuntimeException()).when(rabbitTemplate).convertAndSend(any());
+    @Test
+    public void publishExceptionalState() throws Exception {
+        doThrow(new RuntimeException()).when(rabbitTemplate).convertAndSend(any());
 
-		testMessagePublisher.publish(new Message("test"));
-	}
+        testMessagePublisher.publish(new Message("test"));
+    }
 
-	@Configuration
-	@EnableAutoConfiguration
-	@EnableHystrix
-	static class Config extends TestMessageProducerConfig {
-	}
+    @Configuration
+    @EnableAutoConfiguration
+    @EnableHystrix
+    static class Config extends TestMessageProducerConfig {
+    }
 }

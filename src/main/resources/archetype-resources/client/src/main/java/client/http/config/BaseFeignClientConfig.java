@@ -16,24 +16,24 @@ import feign.jackson.JacksonEncoder;
 
 public abstract class BaseFeignClientConfig {
 
-	@Bean
-	ApacheHttpClient feignClient() {
-		return new ApacheHttpClient();
-	}
+    @Bean
+    ApacheHttpClient feignClient() {
+        return new ApacheHttpClient();
+    }
 
-	@Bean
-	Module jdk8Module() {
-		return new Jdk8Module();
-	}
+    @Bean
+    Module jdk8Module() {
+        return new Jdk8Module();
+    }
 
-	@Bean
-	Encoder feignEncoder(List<Module> modules) {
-		return new JacksonEncoder(modules);
-	}
+    @Bean
+    Encoder feignEncoder(List<Module> modules) {
+        return new JacksonEncoder(modules);
+    }
 
-	@Bean
-	Decoder feignDecoder() {
-		return new OptionalAwareDecoder(new JacksonDecoder());
-	}
+    @Bean
+    Decoder feignDecoder() {
+        return new OptionalAwareDecoder(new JacksonDecoder());
+    }
 
 }

@@ -30,60 +30,60 @@ import okhttp3.mockwebserver.MockWebServer;
 @ContextConfiguration
 public class HealthCheckResourceClientTest {
 
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-	private static final String HELLO = "Hello";
-	private static final String NAME = "Martin";
-	private static final String ORIGIN = "Space";
-	private static final Message MESSAGE = new Message(HELLO);
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final String HELLO = "Hello";
+    private static final String NAME = "Martin";
+    private static final String ORIGIN = "Space";
+    private static final Message MESSAGE = new Message(HELLO);
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-	@Autowired
-	private MockWebServer mockWebServer;
-	@Autowired
-	private HealthCheckResourceClient client;
+    @Autowired
+    private MockWebServer mockWebServer;
+    @Autowired
+    private HealthCheckResourceClient client;
 
-	@Test
-	public void testOkResponse() throws JsonProcessingException {
-		mockWebServer.enqueue(new MockResponse()
-				.setBody(OBJECT_MAPPER.writeValueAsString(MESSAGE))
-				.setResponseCode(HttpStatus.SC_OK));
+    @Test
+    public void testOkResponse() throws JsonProcessingException {
+        mockWebServer.enqueue(new MockResponse()
+                .setBody(OBJECT_MAPPER.writeValueAsString(MESSAGE))
+                .setResponseCode(HttpStatus.SC_OK));
 
-		Optional<Message> message = client.sayHello(NAME, ORIGIN);
+        Optional<Message> message = client.sayHello(NAME, ORIGIN);
 
-		assertThat(message.isPresent(), is(true));
-		assertThat(message.get().getMessage(), is(HELLO));
-	}
+        assertThat(message.isPresent(), is(true));
+        assertThat(message.get().getMessage(), is(HELLO));
+    }
 
-	@Test
-	public void testNotFoundResponse() throws JsonProcessingException {
-		mockWebServer.enqueue(new MockResponse()
-				.setResponseCode(HttpStatus.SC_NOT_FOUND));
+    @Test
+    public void testNotFoundResponse() throws JsonProcessingException {
+        mockWebServer.enqueue(new MockResponse()
+                .setResponseCode(HttpStatus.SC_NOT_FOUND));
 
-		Optional<Message> message = client.sayHello(NAME, ORIGIN);
+        Optional<Message> message = client.sayHello(NAME, ORIGIN);
 
-		assertThat(message.isPresent(), is(false));
-	}
+        assertThat(message.isPresent(), is(false));
+    }
 
-	@Test
-	public void testServiceUnavailableResponse() throws JsonProcessingException {
-		mockWebServer.enqueue(new MockResponse()
-				.setResponseCode(HttpStatus.SC_SERVICE_UNAVAILABLE));
+    @Test
+    public void testServiceUnavailableResponse() throws JsonProcessingException {
+        mockWebServer.enqueue(new MockResponse()
+                .setResponseCode(HttpStatus.SC_SERVICE_UNAVAILABLE));
 
-		thrown.expect(FeignException.class);
-		thrown.expectMessage(containsString(String.valueOf(HttpStatus.SC_SERVICE_UNAVAILABLE)));
+        thrown.expect(FeignException.class);
+        thrown.expectMessage(containsString(String.valueOf(HttpStatus.SC_SERVICE_UNAVAILABLE)));
 
-		Optional<Message> message = client.sayHello(NAME, ORIGIN);
+        Optional<Message> message = client.sayHello(NAME, ORIGIN);
 
-		assertThat(message.isPresent(), is(true));
-	}
+        assertThat(message.isPresent(), is(true));
+    }
 
-	@Configuration
-	public static class Config extends MockServerClientConfig<HealthCheckResourceClient> {
+    @Configuration
+    public static class Config extends MockServerClientConfig<HealthCheckResourceClient> {
 
-		public Config() {
-			super(HealthCheckResourceClient.class, HealthCheckResourceClientConfig.class);
-		}
-	}
+        public Config() {
+            super(HealthCheckResourceClient.class, HealthCheckResourceClientConfig.class);
+        }
+    }
 }

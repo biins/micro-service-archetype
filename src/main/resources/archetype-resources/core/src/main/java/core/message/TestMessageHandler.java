@@ -5,10 +5,10 @@ import org.biins.commons.logging.LoggerFactory;
 
 public class TestMessageHandler implements MessageHandler<Message<String>> {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(TestMessageHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestMessageHandler.class);
 
-	@Override
-	public void handleMessage(Message<String> message) {
-		LOGGER.asJson().info("Receiving message '{}'", message);
-	}
+    @Override
+    public void handleMessage(Message<String> message) {
+        LOGGER.asJson().info("Receiving message '{}'", message);
+    }
 }

@@ -15,18 +15,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class HealthCheckResourceHystrixClientCache {
 
-	private final HealthCheckResourceHystrixClient client;
-	private final Cache cache;
+    private final HealthCheckResourceHystrixClient client;
+    private final Cache cache;
 
-	@Inject
-	public HealthCheckResourceHystrixClientCache(HealthCheckResourceHystrixClient client, CacheManager cacheManager) {
-		this.client = client;
-		this.cache = cacheManager.getCache("hello");
-	}
+    @Inject
+    public HealthCheckResourceHystrixClientCache(HealthCheckResourceHystrixClient client, CacheManager cacheManager) {
+        this.client = client;
+        this.cache = cacheManager.getCache("hello");
+    }
 
-	public Optional<Message> sayHello(String name, String origin) {
-		return HystrixCacheLoader.of(new SimpleKey(name, origin), Message.class)
-				.with(cache)
-				.getAndSet(() -> client.sayHelloToHystrixCommand(name, origin));
-	}
+    public Optional<Message> sayHello(String name, String origin) {
+        return HystrixCacheLoader.of(new SimpleKey(name, origin), Message.class)
+                .with(cache)
+                .getAndSet(() -> client.sayHelloToHystrixCommand(name, origin));
+    }
 }

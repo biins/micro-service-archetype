@@ -14,15 +14,15 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 @ConditionalOnProperty(value = "task.test.enabled", havingValue = "true")
 public class TestTaskConfig {
 
-	@Bean
-	public TestTask triggerTask() {
-		return new TestTask();
-	}
+    @Bean
+    public TestTask triggerTask() {
+        return new TestTask();
+    }
 
-	public static class TestTask extends TriggerTask {
+    public static class TestTask extends TriggerTask {
 
-		public TestTask() {
-			super(() -> System.out.println("Ping"), new PeriodicTrigger(5, TimeUnit.SECONDS));
-		}
-	}
+        public TestTask() {
+            super(() -> System.out.println("Ping"), new PeriodicTrigger(5, TimeUnit.SECONDS));
+        }
+    }
 }

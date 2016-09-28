@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-		ConversionServiceConfig.class
+        ConversionServiceConfig.class
 })
 @ComponentScan(basePackages = "${package}.core")
 public class CoreConfig {

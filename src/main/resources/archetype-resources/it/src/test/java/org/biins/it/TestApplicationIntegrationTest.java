@@ -15,11 +15,11 @@ import io.restassured.RestAssured;
 @SpringBootTest(classes = TestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class TestApplicationIntegrationTest {
 
-	@LocalServerPort
-	private int port;
+    @LocalServerPort
+    private int port;
 
-	@Before
-	public void setupPort() {
-		RestAssured.port = port;
-	}
+    @Before
+    public void setupPort() {
+        RestAssured.port = port;
+    }
 }

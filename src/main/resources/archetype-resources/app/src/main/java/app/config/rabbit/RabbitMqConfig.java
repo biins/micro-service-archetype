@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-		TestMessageRabbitMqConfig.class
+        TestMessageRabbitMqConfig.class
 })
 public class RabbitMqConfig {
 }

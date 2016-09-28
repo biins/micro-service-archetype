@@ -12,15 +12,15 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({
-		HelloCache.class
+        HelloCache.class
 })
 @EnableCaching
 public class CacheConfig {
 
-	@Bean
-	public CacheManager cacheManager(List<Cache> caches) {
-		SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
-		simpleCacheManager.setCaches(caches);
-		return simpleCacheManager;
-	}
+    @Bean
+    public CacheManager cacheManager(List<Cache> caches) {
+        SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
+        simpleCacheManager.setCaches(caches);
+        return simpleCacheManager;
+    }
 }

@@ -19,32 +19,32 @@ import org.springframework.scheduling.config.Task;
 @EnableScheduling
 @EnableConfigurationProperties(SchedulerProperties.class)
 @Import({
-		TestTaskConfig.class
+        TestTaskConfig.class
 })
 @ConditionalOnBean(Task.class)
 public class SchedulerConfig implements SchedulingConfigurer {
 
-	private final SchedulerProperties schedulerProperties;
-	private final Optional<TestTaskConfig.TestTask> testTask;
+    private final SchedulerProperties schedulerProperties;
+    private final Optional<TestTaskConfig.TestTask> testTask;
 
-	@Inject
-	public SchedulerConfig(SchedulerProperties schedulerProperties, Optional<TestTaskConfig.TestTask> testTask) {
-		this.schedulerProperties = schedulerProperties;
-		this.testTask = testTask;
-	}
+    @Inject
+    public SchedulerConfig(SchedulerProperties schedulerProperties, Optional<TestTaskConfig.TestTask> testTask) {
+        this.schedulerProperties = schedulerProperties;
+        this.testTask = testTask;
+    }
 
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskRegistrar.setScheduler(executor());
-		testTask.ifPresent(taskRegistrar::addTriggerTask);
-	}
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+        taskRegistrar.setScheduler(executor());
+        testTask.ifPresent(taskRegistrar::addTriggerTask);
+    }
 
-	@Bean
-	ThreadPoolTaskScheduler executor() {
-		ThreadPoolTaskScheduler threadPoolTaskExecutor = new ThreadPoolTaskScheduler();
-		threadPoolTaskExecutor.setPoolSize(schedulerProperties.getPoolSize());
-		threadPoolTaskExecutor.setAwaitTerminationSeconds(Integer.MAX_VALUE);
-		threadPoolTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
-		return threadPoolTaskExecutor;
-	}
+    @Bean
+    ThreadPoolTaskScheduler executor() {
+        ThreadPoolTaskScheduler threadPoolTaskExecutor = new ThreadPoolTaskScheduler();
+        threadPoolTaskExecutor.setPoolSize(schedulerProperties.getPoolSize());
+        threadPoolTaskExecutor.setAwaitTerminationSeconds(Integer.MAX_VALUE);
+        threadPoolTaskExecutor.setWaitForTasksToCompleteOnShutdown(true);
+        return threadPoolTaskExecutor;
+    }
 }

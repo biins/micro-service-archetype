@@ -11,32 +11,32 @@ import okhttp3.mockwebserver.MockWebServer;
 
 @Configuration
 @Import({
-		FeignAutoConfiguration.class
+        FeignAutoConfiguration.class
 })
 public abstract class MockServerClientConfig<T> {
 
-	private final Class<T> clientClass;
-	private final Class<?> clientConfiguration;
+    private final Class<T> clientClass;
+    private final Class<?> clientConfiguration;
 
-	protected MockServerClientConfig(Class<T> clientClass, Class<?> clientConfiguration) {
-		this.clientClass = clientClass;
-		this.clientConfiguration = clientConfiguration;
-	}
+    protected MockServerClientConfig(Class<T> clientClass, Class<?> clientConfiguration) {
+        this.clientClass = clientClass;
+        this.clientConfiguration = clientConfiguration;
+    }
 
-	@Bean
-	public MockWebServer mockWebServer() {
-		return new MockWebServer();
-	}
+    @Bean
+    public MockWebServer mockWebServer() {
+        return new MockWebServer();
+    }
 
-	@Bean
-	public TestFeignClientFactoryBean<T> feignClientFactoryBean(MockWebServer mockWebServer) {
-		TestFeignClientFactoryBean<T> feignClientFactoryBean = new TestFeignClientFactoryBean<>(clientClass);
-		feignClientFactoryBean.setName(mockWebServer.url("/").toString());
-		return feignClientFactoryBean;
-	}
+    @Bean
+    public TestFeignClientFactoryBean<T> feignClientFactoryBean(MockWebServer mockWebServer) {
+        TestFeignClientFactoryBean<T> feignClientFactoryBean = new TestFeignClientFactoryBean<>(clientClass);
+        feignClientFactoryBean.setName(mockWebServer.url("/").toString());
+        return feignClientFactoryBean;
+    }
 
-	@Bean
-	public FeignClientSpecification feignClientSpecification(TestFeignClientFactoryBean testFeignClientFactoryBean) {
-		return new FeignClientSpecification(testFeignClientFactoryBean.getName(), new Class[]{clientConfiguration});
-	}
+    @Bean
+    public FeignClientSpecification feignClientSpecification(TestFeignClientFactoryBean testFeignClientFactoryBean) {
+        return new FeignClientSpecification(testFeignClientFactoryBean.getName(), new Class[]{clientConfiguration});
+    }
 }

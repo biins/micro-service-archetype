@@ -9,15 +9,15 @@ import org.junit.Test;
 
 public class HealthCheckIntegrationTest extends TestApplicationIntegrationTest {
 
-	@Test
-	public void testHealthCheck() {
-		given()
-			.basePath("/test/")
-		.then()
-			.request()
-			.get()
-		.then()
-			.statusCode(is(HttpStatus.SC_OK))
-			.body("message", startsWith("Hello"));
-	}
+    @Test
+    public void testHealthCheck() {
+        given()
+            .basePath("/test/")
+        .then()
+            .request()
+            .get()
+        .then()
+            .statusCode(is(HttpStatus.SC_OK))
+            .body("message", startsWith("Hello"));
+    }
 }

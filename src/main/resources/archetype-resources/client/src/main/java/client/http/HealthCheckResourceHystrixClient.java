@@ -18,52 +18,52 @@ import rx.Single;
 
 // TODO: remove
 @FeignClient(
-		name = "${http.client.test.url}",
-		path = "/test",
-		decode404 = true,
-		configuration = HealthCheckResourceHystrixClientConfig.class,
-		fallback = HealthCheckResourceHystrixClientFallback.class
+        name = "${http.client.test.url}",
+        path = "/test",
+        decode404 = true,
+        configuration = HealthCheckResourceHystrixClientConfig.class,
+        fallback = HealthCheckResourceHystrixClientFallback.class
 )
 public interface HealthCheckResourceHystrixClient {
 
-	@RequestMapping("/")
-	Optional<Message> sayHello(@RequestParam("name") String name, @RequestHeader("origin") String origin);
+    @RequestMapping("/")
+    Optional<Message> sayHello(@RequestParam("name") String name, @RequestHeader("origin") String origin);
 
-	@RequestMapping("/")
-	Single<Message> sayHelloToRx(@RequestParam("name") String name, @RequestHeader("origin") String origin);
+    @RequestMapping("/")
+    Single<Message> sayHelloToRx(@RequestParam("name") String name, @RequestHeader("origin") String origin);
 
-	@RequestMapping("/")
-	HystrixCommand<Message> sayHelloToHystrixCommand(@RequestParam("name") String name, @RequestHeader("origin") String origin);
+    @RequestMapping("/")
+    HystrixCommand<Message> sayHelloToHystrixCommand(@RequestParam("name") String name, @RequestHeader("origin") String origin);
 
 }
 
 class HealthCheckResourceHystrixClientFallback implements HealthCheckResourceHystrixClient {
 
-	@Override
-	public Optional<Message> sayHello(String name, String origin) {
-		return Optional.empty();
-	}
+    @Override
+    public Optional<Message> sayHello(String name, String origin) {
+        return Optional.empty();
+    }
 
-	@Override
-	public Single<Message> sayHelloToRx(String name, String origin) {
-		return Single.just(null);
-	}
+    @Override
+    public Single<Message> sayHelloToRx(String name, String origin) {
+        return Single.just(null);
+    }
 
-	@Override
-	public HystrixCommand<Message> sayHelloToHystrixCommand(String name, String origin) {
-		return new FallbackCommand<>(null);
-	}
+    @Override
+    public HystrixCommand<Message> sayHelloToHystrixCommand(String name, String origin) {
+        return new FallbackCommand<>(null);
+    }
 }
 
 class HealthCheckResourceHystrixClientConfig extends BaseFeignClientConfig {
 
-	@Bean
-	Logger.Level feignLoggerLevel() {
-		return Logger.Level.FULL;
-	}
+    @Bean
+    Logger.Level feignLoggerLevel() {
+        return Logger.Level.FULL;
+    }
 
-	@Bean
-	HealthCheckResourceHystrixClientFallback healthCheckResourceClientFallback() {
-		return new HealthCheckResourceHystrixClientFallback();
-	}
+    @Bean
+    HealthCheckResourceHystrixClientFallback healthCheckResourceClientFallback() {
+        return new HealthCheckResourceHystrixClientFallback();
+    }
 }

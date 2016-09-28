@@ -5,28 +5,28 @@ import java.util.UUID;
 
 public class Message<T> {
 
-	private String uuid;
-	private LocalDateTime timestamp;
-	private T payload;
+    private String uuid;
+    private LocalDateTime timestamp;
+    private T payload;
 
-	private Message() {
-	}
+    private Message() {
+    }
 
-	public Message(T payload) {
-		this.uuid = UUID.randomUUID().toString();
-		this.timestamp = LocalDateTime.now();
-		this.payload = payload;
-	}
+    public Message(T payload) {
+        this.uuid = UUID.randomUUID().toString();
+        this.timestamp = LocalDateTime.now();
+        this.payload = payload;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public String getUuid() {
+        return uuid;
+    }
 
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
 
-	public T getPayload() {
-		return payload;
-	}
+    public T getPayload() {
+        return payload;
+    }
 }

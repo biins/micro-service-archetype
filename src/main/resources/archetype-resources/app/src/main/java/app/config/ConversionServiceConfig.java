@@ -12,16 +12,16 @@ import org.springframework.core.convert.converter.Converter;
 @Configuration
 public class ConversionServiceConfig {
 
-	@Bean
-	public ConversionServiceFactoryBean conversionService(Set<Converter> converters) {
-		ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
-		conversionServiceFactoryBean.setConverters(converters);
-		return conversionServiceFactoryBean;
-	}
+    @Bean
+    public ConversionServiceFactoryBean conversionService(Set<Converter> converters) {
+        ConversionServiceFactoryBean conversionServiceFactoryBean = new ConversionServiceFactoryBean();
+        conversionServiceFactoryBean.setConverters(converters);
+        return conversionServiceFactoryBean;
+    }
 
-	@Bean
-	@ConfigurationPropertiesBinding
-	public StringToDurationConverter stringToDurationConverter() {
-		return new StringToDurationConverter();
-	}
+    @Bean
+    @ConfigurationPropertiesBinding
+    public StringToDurationConverter stringToDurationConverter() {
+        return new StringToDurationConverter();
+    }
 }

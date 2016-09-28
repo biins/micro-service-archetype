@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 @ConfigurationProperties(prefix = "rabbitmq.message.test")
 public class TestMessageRabbitMqConfig extends BaseRabbitMqConfig {
 
-	@Override
-	@Bean
-	TestMessageHandler receiver() {
-		return new TestMessageHandler();
-	}
+    @Override
+    @Bean
+    TestMessageHandler receiver() {
+        return new TestMessageHandler();
+    }
 
 }
